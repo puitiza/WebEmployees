@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { ServiceService } from 'src/app/Service/service.service';
 import { Persona } from 'src/app/Model/Persona';
 import { ToastrService } from 'ngx-toastr';
+import { HttpErrorResponse } from '@angular/common/http';
+import { HTTP } from 'src/app/Model/Contanst/HTTP';
 
 
 @Component({
@@ -12,28 +14,41 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class AddComponent implements OnInit {
 
+  HTTP: typeof HTTP = HTTP;
   persona: Persona = new Persona();
 
-  constructor(private router: Router, private service: ServiceService,private toastr: ToastrService) { }
+  constructor(private router: Router, private service: ServiceService, private toastr: ToastrService) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   onSubmit() {
-    this.Guardar();    
+    this.Guardar();
   }
 
   Guardar() {
 
     this.service.createPersona(this.persona)
       .subscribe(data => {
-        this.toastr.success('Mensaje', 'Toast Title',{
-          closeButton : true,
-          positionClass: 'toast-top-full-width' ,
+        this.toastr.success('', 'Guardado éxitosamente', {
+          closeButton: true,
+          positionClass: 'toast-top-full-width',
         });
-        //alert("Se Agrego con Exito ...!!!");
         console.log(data);
         //this.router.navigate(["listar"]);
-      }, error => console.log(error) )
+      }, error => {
+        if (error instanceof HttpErrorResponse) {
+          // const errorMessages = new Array<{ propName: string; errors: string }>();
+          switch (error.status) {
+            default:
+              this.toastr.error('Se ha encontrado un problema al guardar la persona', 'No se puede guardar', {
+                closeButton: true,
+                positionClass: 'toast-top-full-width',
+              });
+              console.log('Error Message', error.message);
+              break;
+          }
+        }
+      })
   }
 
 }

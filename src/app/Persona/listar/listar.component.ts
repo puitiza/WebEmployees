@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Persona } from 'src/app/Model/Persona';
 import { HttpErrorResponse } from '@angular/common/http';
 import { HTTP } from 'src/app/Model/Contanst/HTTP';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-listar',
@@ -18,7 +19,7 @@ export class ListarComponent implements OnInit {
   // errorMessage : string;
 
   //(let persona of personas)->top declare variable "personas" that I'll use in html
-  constructor(private service: ServiceService, private router: Router) { }
+  constructor(private service: ServiceService, private router: Router, private toastr: ToastrService) { }
 
   ngOnInit() {
     this.service.getPersonas()
@@ -40,6 +41,22 @@ export class ListarComponent implements OnInit {
           }
         }
       })
+  }
+
+  Editar(persona:Persona):void{
+    localStorage.setItem("id",persona.id.toString());
+    this.router.navigate(["edit"]);
+  }
+
+  Eliminar(persona:Persona):void{
+    this.service.deletePersona(persona)
+    .subscribe(data =>{
+      this.personas=this.personas.filter(p=> p!==persona);
+      this.toastr.success('', 'Persona eliminada éxitosamente', {
+        closeButton: true,
+        positionClass: 'toast-top-full-width',
+      });
+    })
   }
 
 }

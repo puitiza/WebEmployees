@@ -29,8 +29,8 @@
                         <td data-input="name">{{persona.name}}</td>
                         <td data-input="lastname">{{persona.last_name}}</td>
                         <td>
-                            <button class="btn btn-warning">Editar</button>
-                            <button class="btn btn-danger" style="margin-left: 10px;">Eliminar</button>
+                            <button (click)="Editar(persona)" class="btn btn-warning">Editar</button>
+                            <button (click)="Eliminar(persona)" class="btn btn-danger" style="margin-left: 10px;">Eliminar</button>
                         </td>
                     </tr>
                 </tbody>
