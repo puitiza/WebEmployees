@@ -1,1 +1,54 @@
-<p>listar works!</p>
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h3>Personas</h3>
+        </div>
+        <div [ngSwitch]="status" class="card-body">
+            <!-- <div class="nav justify-content-center">
+                <input type="number" min="1" style="height: 90%; width: 10%;" id="id" class="search-key"
+                    placeholder="Id">
+                <input type="text" style="height: 90%; width: 25%;" id="name" class="search-key" placeholder="Nombre">
+                <input type="text" style="height: 90%; width: 25%;" id="lastname" class="search-key"
+                    placeholder="Apellido">
+                <input type="text" style="height: 90%; width: 40%; opacity: 0.0;" disabled id="name"
+                    class="form-control" placeholder="name">
+            </div> -->
+            <!-- <span class="alert"></span> -->
+            <table id="MI6" class="table table-hover" *ngSwitchCase="HTTP.OK">
+                <thead>
+                    <tr class="text-center">
+                        <th>ID</th>
+                        <th>NOMBRES</th>
+                        <th>APELLIDOS</th>
+                        <th>ACCIONES</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let persona of personas" class="text-center">
+                        <td data-input="id">{{persona.id}}</td>
+                        <td data-input="name">{{persona.name}}</td>
+                        <td data-input="lastname">{{persona.lastName}}</td>
+                        <td>
+                            <button class="btn btn-warning">Editar</button>
+                            <button class="btn btn-danger" style="margin-left: 10px;">Eliminar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- <span class="alert" *ngSwitchCase = "HTTP_.NOT_FOUND">{{errorMessage}}</span> -->
+            <div class="text-center" *ngSwitchCase="HTTP.NO_CONTENT" style="height: 100%; width: 100%; margin: 0;">
+                <img src="../assets/box_empty.svg" style="height: 10%; width: 10%;" />
+                <div>
+                    <span style="height: 90%; width: 90%;">La lista de personas está vacia </span>
+                </div>
+            </div>
+            <div class="text-center" *ngSwitchDefault style="height: 100%; width: 100%; margin: 0;">
+                <img src="../assets/error_server.svg" style="height: 10%; width: 10%;" />
+                <div>
+                    <span style="height: 90%; width: 90%;">Se ha dectado un problema con el servidor, intente más
+                        tarde</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
