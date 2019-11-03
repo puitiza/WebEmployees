@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ServiceService } from 'src/app/Service/service.service';
 import { Persona } from 'src/app/Model/Persona';
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-add',
@@ -12,7 +14,7 @@ export class AddComponent implements OnInit {
 
   persona: Persona = new Persona();
 
-  constructor(private router: Router, private service: ServiceService) { }
+  constructor(private router: Router, private service: ServiceService,private toastr: ToastrService) { }
 
   ngOnInit() {}
 
@@ -24,9 +26,13 @@ export class AddComponent implements OnInit {
 
     this.service.createPersona(this.persona)
       .subscribe(data => {
-        alert("Se Agrego con Exito ...!!!");
+        this.toastr.success('Mensaje', 'Toast Title',{
+          closeButton : true,
+          positionClass: 'toast-top-full-width' ,
+        });
+        //alert("Se Agrego con Exito ...!!!");
         console.log(data);
-        this.router.navigate(["listar"]);
+        //this.router.navigate(["listar"]);
       }, error => console.log(error) )
   }
 
