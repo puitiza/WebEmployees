@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { persona } from '../Model/Persona';
+import { Persona } from '../Model/Persona';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +16,10 @@ export class ServiceService {
 
   //Este metodo obtendrá el listar de personas
   getPersonas(){
-    return this.http.get<persona[]>(this.Url);
+    return this.http.get<Persona[]>(this.Url);
+  }
+
+  createPersona(persona:Persona){
+    return this.http.post<Persona>(this.Url,persona);
   }
 }

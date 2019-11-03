@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ServiceService } from 'src/app/Service/service.service';
 import { Router } from '@angular/router';
-import { persona } from 'src/app/Model/Persona';
+import { Persona } from 'src/app/Model/Persona';
 import { HttpErrorResponse } from '@angular/common/http';
 import { HTTP } from 'src/app/Model/Contanst/HTTP';
 
@@ -12,7 +12,7 @@ import { HTTP } from 'src/app/Model/Contanst/HTTP';
 })
 export class ListarComponent implements OnInit {
 
-  personas: persona[];
+  personas: Persona[];
   status: number;
   HTTP: typeof HTTP = HTTP;
   // errorMessage : string;

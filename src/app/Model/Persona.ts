@@ -1,5 +1,5 @@
-export class persona{
+export class Persona{
     id:number;
     name:String;
-    lastName:String;
+    last_name:String;
 }
